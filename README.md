@@ -1,6 +1,6 @@
-# my-vuex
+# daily-by-vue
 
-> A Vue.js project
+> this is zhihudaily
 
 ## Build Setup
 
