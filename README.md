@@ -1,6 +1,6 @@
-# daily-by-vue
+# y
 
-> this is zhihudaily
+> A Vue.js project
 
 ## Build Setup
 

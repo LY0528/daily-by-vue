@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+const _import = require('./_import_' + process.env.NODE_ENV)
 
 Vue.use(Router)
 
+const staticRouters = [
+  {
+    path: '/',
+    name: 'IndexPage',
+    component: _import('homePage/IndexPage')
+  }
+]
+
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
-  ]
+  routes: staticRouters
 })
