@@ -1,6 +1,6 @@
-# y
+# daily-by-vue
 
-> A Vue.js project
+> vue+vue-router+vux+less+es6
 
 ## Build Setup
 

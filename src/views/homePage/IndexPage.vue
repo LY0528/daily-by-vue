@@ -1,80 +1,41 @@
 <template>
   <div class="content" :class="{'is-hidden':isShow}">
-    <drawer :show="isShow" show-mode="overlay" placement="left" @update:show="hideMask">
-      <div slot="drawer" style="width:200px">
-        <div>这里是哈哈哈哈</div>
+    <drawer
+      :show="isShow"
+      show-mode="overlay"
+      placement="left"
+      @update:show="hideMask">
+      <div slot="drawer" class="side-bar">
+        <side-bar>
+
+        </side-bar>
       </div>
-      <div>
-        <x-header>
-          <span></span>
-          <x-icon 
-            slot="overwrite-left" 
-            type="navicon" 
-            size="35" 
-            style="fill:#fff;position:relative;top:-8px;left:-3px;"
-            @click.native="handleDrawer"></x-icon>
-        </x-header>
-        <swiper :aspect-ratio="1/1.5">
-          <swiper-item 
-            class="swiper-demo-img" 
-            v-for="(item, index) in topList" 
-            :key="index">
-            <img :src="item.image">
-            <p class="title">{{item.title}}</p>
-          </swiper-item>
-        </swiper>
-        <flexbox orient="vertical">
-          <flexbox-item
-            v-for="item in storieList"
-            :key="item.id">
-            <div class="item-list card-box-shadow">
-              <div class="left">
-                <img :src="item.images[0]" alt="">
-              </div>
-              <div class="right">{{item.title}}</div>
-            </div>
-          </flexbox-item>
-        </flexbox>
-      </div>
+      <content-page
+      @isShow="changeIsShow">
+
+      </content-page>
     </drawer>
   </div>
 </template>
 
 <script>
-import { Swiper, SwiperItem, Flexbox, FlexboxItem, Drawer, XHeader } from 'vux'
-import { request } from '@/utils/request'
+import { Drawer } from 'vux'
+import SideBar from '@/views/sidebar/SideBar'
+import ContentPage from '@/views/homePage/ContentPage'
 export default {
   components: {
-    Swiper,
-    SwiperItem,
-    Flexbox,
-    FlexboxItem,
     Drawer,
-    XHeader
+    SideBar,
+    ContentPage
   },
   data () {
     return {
-      topList: [],
-      storieList: [],
       isShow: false
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    getData () {
-      request('news/latest', {
-
-      }).then(res => {
-        this.topList = res.data.top_stories
-        this.storieList = res.data.stories
-      }, error => {
-        console.log(error)
-      })
-    },
-    handleDrawer () {
-      this.isShow = !this.isShow
+    changeIsShow (val) {
+      this.isShow = val
     },
     hideMask (val) {
       this.isShow = val
@@ -89,38 +50,9 @@ export default {
   &.is-hidden{
     overflow: hidden;
   }
-  .swiper-demo-img {
-    position: relative;
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .title{
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 10px;
-      text-align: center;
-      color:#fff;
-      background: rgba(0,0,0,.05)
-    }
-  }
-  .item-list+.item-list{
-    margin-bottom: 10px;
-  }
-  .item-list{
-    padding: 10px;
-    .left{
-      width: 80px;
-      height: 80px;
-      margin-right: 10px;
-      img{
-        display: block;
-        width: 100%;
-      }
-    }
+  .side-bar{
+    width: 200px;
+    height: 100%;
   }
 }
 
