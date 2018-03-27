@@ -1,6 +1,6 @@
 # daily-by-vue
 
-> vue+vue-router+vux+less+es6
+> vue+vue-router+vue-vuex+vux+less+es6
 
 ## Build Setup
 

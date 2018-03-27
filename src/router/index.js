@@ -9,6 +9,11 @@ const staticRouters = [
     path: '/',
     name: 'IndexPage',
     component: _import('homePage/IndexPage')
+  },
+  {
+    path: '/themeDetail/:id',
+    name: 'themeDetail',
+    component: _import('themeDetail/ThemeDetail')
   }
 ]
 

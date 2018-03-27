@@ -9,7 +9,9 @@
       <flexbox-item
         class="vux-1px-b"
         v-for="item in themes"
-        :key="item.id">
+        :key="item.id"
+        :class="{'active':item.active}"
+        @click.native="switchTheme(item)">
         <div class="item-list">
           <div class="left">
             <img :src="item.thumbnail" alt="">
@@ -23,6 +25,7 @@
 
 <script>
   import { XHeader, Flexbox, FlexboxItem } from 'vux'
+  import { mapGetters } from 'vuex'
   import { request } from '@/utils/request'
   export default {
     components: {
@@ -35,6 +38,11 @@
         themes: []
       }
     },
+    computed: {
+      ...mapGetters([
+        'sidebarId'
+      ])
+    },
     created () {
       this.getThemes()
     },
@@ -44,8 +52,25 @@
 
         }).then(res => {
           this.themes = res.data.others
+          this.themes.forEach(v => {
+            if (typeof this.sidebarId.id !== 'undefined' && v.id === Number(this.sidebarId.id)) {
+              this.$set(v, 'active', true)
+            } else {
+              this.$set(v, 'active', false)
+            }
+          })
         }, error => {
           console.log(error)
+        })
+      },
+      switchTheme (item) {
+        this.themes.forEach(v => {
+          v.active = false
+        })
+        item.active = true
+        this.$store.dispatch('ToggleSidebar', { id: item.id })
+        this.$router.push({
+          path: `/themeDetail/${item.id}`
         })
       }
     }
@@ -68,9 +93,12 @@
       }
     }
   }
-  .vux-header,
-  .vux-flexbox-item.active{
-    background: #7a9097;
+  .vux-header{
+    background: #819397;
   }
+  .vux-flexbox-item.active{
+     background: #94acb3;
+    color: #fff;
+   }
 
 </style>
