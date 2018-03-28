@@ -15,6 +15,7 @@ export default {
 @import '~vux/src/styles/1px.less';
 @import 'styles/common.less';
 @import 'styles/resetVux';
+@import 'assets/fonts/iconfont.less';
 
 body {
   background-color: #f4f5f9;

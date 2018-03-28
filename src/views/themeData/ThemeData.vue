@@ -8,7 +8,8 @@
     <flexbox class="stories" orient="vertical">
       <flexbox-item
         v-for="item in themeData.stories"
-        :key="item.id">
+        :key="item.id"
+        @click.native="storiesDetail(item.id)">
         <div class="item-list card-box-shadow">
           <div class="left">
             <img :src="item.images && item.images[0]" alt="">
@@ -42,11 +43,25 @@
         request(`theme/${this.id}`, {
 
         }).then(res => {
-          console.log(res.data)
           this.themeData = res.data
+          this.$store.dispatch('ToggleStoriesList', {
+            list: this.setNewArray(this.themeData.stories)
+          })
         }, error => {
           console.log(error)
         })
+      },
+      storiesDetail (id) {
+        this.$router.push({
+          path: `/stories/${id}`
+        })
+      },
+      setNewArray (list) {
+        const arr = []
+        list.forEach(v => {
+          arr.push(v.id)
+        })
+        return arr
       }
     }
   }

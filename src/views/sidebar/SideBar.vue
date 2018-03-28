@@ -70,7 +70,7 @@
         item.active = true
         this.$store.dispatch('ToggleSidebar', { id: item.id })
         this.$router.push({
-          path: `/themeDetail/${item.id}`
+          path: `/themeData/${item.id}`
         })
       }
     }

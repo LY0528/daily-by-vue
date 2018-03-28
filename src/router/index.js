@@ -11,9 +11,14 @@ const staticRouters = [
     component: _import('homePage/IndexPage')
   },
   {
-    path: '/themeDetail/:id',
-    name: 'themeDetail',
-    component: _import('themeDetail/ThemeDetail')
+    path: '/themeData/:id',
+    name: 'ThemeData',
+    component: _import('themeData/ThemeData')
+  },
+  {
+    path: '/stories/:id',
+    name: 'stories',
+    component: _import('stories/StoriesDetail')
   }
 ]
 

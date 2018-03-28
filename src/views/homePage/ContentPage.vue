@@ -13,7 +13,8 @@
       <swiper-item
         class="swiper-demo-img"
         v-for="(item, index) in topList"
-        :key="index">
+        :key="index"
+        @click.native="storiesDetail(item.id)">
         <img :src="item.image">
         <p class="title">{{item.title}}</p>
       </swiper-item>
@@ -21,7 +22,8 @@
     <flexbox orient="vertical">
       <flexbox-item
         v-for="item in storieList"
-        :key="item.id">
+        :key="item.id"
+        @click.native="storiesDetail(item.id)">
         <div class="item-list card-box-shadow">
           <div class="left">
             <img :src="item.images[0]" alt="">
@@ -60,12 +62,27 @@
         }).then(res => {
           this.topList = res.data.top_stories
           this.storieList = res.data.stories
+          this.$store.dispatch('ToggleStoriesList', {
+            list: this.setNewArray(this.storieList)
+          })
         }, error => {
           console.log(error)
         })
       },
       handleDrawer () {
         this.$emit('isShow', true)
+      },
+      storiesDetail (id) {
+        this.$router.push({
+          path: `/stories/${id}`
+        })
+      },
+      setNewArray (list) {
+        const arr = []
+        list.forEach(v => {
+          arr.push(v.id)
+        })
+        return arr
       }
     }
   }
